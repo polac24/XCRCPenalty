@@ -1,0 +1,22 @@
+{
+  "name": "name1",
+  "version": "0.1.0",
+  "summary": "A short description of name1.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/Bartosz Polaczyk/name1",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Bartosz Polaczyk": "bartoszp@spotify.com"
+  },
+  "source": {
+    "git": "https://github.com/Bartosz Polaczyk/name1.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "source_files": "name1/Classes/**/*"
+}
