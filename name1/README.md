@@ -22,7 +22,7 @@ pod 'name1'
 
 ## Author
 
-Bartosz Polaczyk, bartoszp@spotify.com
+Bartosz Polaczyk, polac24@gmail.com
 
 ## License
 
