@@ -2,56 +2,29 @@
 ### Sample project for CocoaPods with nested dependencies
 
 Steps to reproduce:
-* install xcremote cache cocoapods plugin: `gem install cocoapods-xcremotecache`
-* add `self` origin: `git remote add self .`
-* start an nginx server, e.g. `nginx`
-* `pod install`
-* Build a project from Xcode and verify uploaded meta files, e.g. 
+1. Call for a baseline Xcode:
+ - `env DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer ./reproduce.sh` - with XCRemoteCache
+ - `env DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer ./reproduce.sh 0` - without XCRemoteCache
+
+2. Call for the other Xcode(s):
+ - `env DEVELOPER_DIR=/Applications/Xcode-other.app/Contents/Developer ./reproduce.sh` - with XCRemoteCache
+ - `env DEVELOPER_DIR=/Applications/Xcode-other.app/Contents/Developer ./reproduce.sh 0` - without XCRemoteCache
 
 
-```
-{
-  "inputs": [],
-  "generationCommit": "9b5fa7fb5479329c7056391c63a16f07ae60c4fb",
-  "pluginsKeys": {},
-  "targetName": "name1",
-  "platform": "iphonesimulator",
-  "configuration": "Debug",
-  "rawFingerprint": "1e781b6d9df5f75605f60b14cc5b76be",
-  "fileKey": "fe0756c8aec1fd2126f453b1da5b2778",
-  "dependencies": [
-    "$(SRCROOT)/Target Support Files/name1/name1-dummy.m",
-    "$(SRCROOT)/Target Support Files/name1/name1-prefix.pch",
-    "$(BUILD_DIR)/Debug-iphonesimulator/name1/name1.framework/Headers/name1-umbrella.h",
-    "$(PODS_TARGET_SRCROOT)/name1/Classes/ReplaceMe.swift"
-  ],
-  "xcode": "13C100"
-}
-```
+#### Results:
 
-* Archive a project from Xcode and verify uploaded meta files, e.g. 
+MacBook Pro M1 Max:
 
+##### Results for Xcode 13.4:
 
-```
-{
-  "inputs": [],
-  "generationCommit": "0df328768f1d0d40f659705d26786673c4201784",
-  "pluginsKeys": {},
-  "targetName": "name1",
-  "platform": "iphoneos",
-  "configuration": "Release",
-  "rawFingerprint": "1e781b6d9df5f75605f60b14cc5b76be",
-  "fileKey": "bab3ab4c1cb1328f0d6b83b318af7ff2",
-  "dependencies": [
-    "$(SRCROOT)/Target Support Files/name1/name1-dummy.m",
-    "$(SRCROOT)/Target Support Files/name1/name1-prefix.pch",
-    "$(BUILD_DIR)/Release-iphoneos/name1/name1.framework/Headers/name1-umbrella.h",
-    "$(PODS_TARGET_SRCROOT)/name1/Classes/ReplaceMe.swift"
-  ],
-  "xcode": "13C100"
-}
-```
+* with XCRC: AVG 16.6s: `0m16.655s`, `0m15.908s`, `0m17.240s`
+* without XCRC: AVG 14.5s: `0m14.444s`, `0m15.430s`, `0m14.751s`
 
-### Expected behavior
+XCRC penalty with 0% cache hit: +15%
 
-No absolute paths in the `dependencies` property
+##### Results for Xcode 13.2.1:
+
+* with XCRC: AVG 18.9s: `0m18.499s`, `0m18.304s`, `0m20.017s`
+* without XCRC: AVG 16.9s: `0m16.550s`, `0m17.201s`, `0m16.988s`
+
+XCRC Penalty with 0% cache hit: +12%
